@@ -44,7 +44,7 @@ function wfSpecialMultiUploadNav( &$skintemplate, &$nav_urls, &$oldid, &$revid )
 	global $wgUser;
 	if( $wgUser->isAllowed( 'upload' ) )
 		$nav_urls['multiupload'] = array(
-			'text' => wfMsg( 'multiupload_link' ),
+			'text' => wfMessage('multiupload_link')->inContentLanguage()->plain(),
 			'href' => $skintemplate->makeSpecialUrl( 'MultipleUpload' )
 		);
 
