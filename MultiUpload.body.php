@@ -69,7 +69,7 @@ class MultipleUpload extends SpecialUpload
 
 		// let's make the parent happy
 		wfSuppressWarnings();
-		$_FILES['wpUploadFile'] = $_FILES['wpUploadFile0'];
+		$_FILES['wpUploadFile'] = isset($_FILES['wpUploadFile0']) ? $_FILES['wpUploadFile0'] : null;
 		wfRestoreWarnings();
 		// Guess the desired name from the filename if not provided
 		$this->mDesiredDestNames = array();
