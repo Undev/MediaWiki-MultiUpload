@@ -103,17 +103,25 @@ class MultipleUpload extends SpecialUpload
 					$this->mDesiredDestNames[$i] = $request->getFileName('wpUploadFile' . $i);
 				}
 				wfSuppressWarnings();
-				$request->setVal('wpUploadFile', $_FILES['wpUploadFile' . $i]);
+				if (isset($_FILES['wpUploadFile' . $i])) {
+					$request->setVal('wpUploadFile', $_FILES['wpUploadFile' . $i]);
+				}
+
 				wfRestoreWarnings();
 				$request->setVal('wpDestFile', $request->getVal('wpDestFile' . $i));
 				move_uploaded_file('wpUploadFile' . $i, 'wpUploadFile');
 				wfSuppressWarnings();
-				$_FILES['wpUploadFile'] = $_FILES['wpUploadFile' . $i];
+
+				if (isset($_FILES['wpUploadFile' . $i])) {
+					$_FILES['wpUploadFile'] = $_FILES['wpUploadFile' . $i];
+				}
+
 				wfRestoreWarnings();
 				$up = UploadBase::createFromRequest($request);
 				if ($up) {
 					$this->mUploads[] = $up;
 				}
+
 			}
 		}
 		$this->mDesiredDestName = $this->mDesiredDestNames[0];
